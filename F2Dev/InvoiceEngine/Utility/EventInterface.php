@@ -23,5 +23,5 @@ namespace F2Dev\InvoiceEngine\Utility;
 
 interface Event
 {
-	public function getEventData(): array;
+	public function getEventData();
 }
