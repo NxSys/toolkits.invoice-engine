@@ -25,9 +25,13 @@ namespace F2Dev\InvoiceEngine\Invoice;
 
 use F2Dev\InvoiceEngine\Invoice\Item\Item;
 use F2Dev\InvoiceEngine\Calculator\Calculators\SimpleCalculator;
+use F2Dev\InvoiceEngine\Utility;
+use F2Dev\InvoiceEngine\Invoice\Events;
 
 class Invoice
 {
+	use Utility\Evented;
+	
 	public function __construct($sInvoiceID,
 								$sInvoiceHeader = "",
 								$sInvoiceFooter = "",
@@ -71,6 +75,8 @@ class Invoice
 			$this->calculator = $oTotalCalculator;
 		}
 		$this->items = array();
+		
+		$this->fireEvent(new Events\InvoiceCreatedEvent($this));
 	}
 	
 	public function setId($newID)
